@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 class PublishedManager(models.Manager): #Menedżer opublikowanych postów
     def get_queryset(self):
@@ -31,6 +32,8 @@ class Post(models.Model): #model postu
                               default=Status.DRAFT)
     object = models.Manager() #Menedżer domyślny
     published = PublishedManager() # Niestandardowy menedżer opublikowanych postów
+
+    tags = TaggableManager()
 
     class Meta:
         ordering= ['-publish'] # Posty na blogu pokazują się w odwróconej chronologii

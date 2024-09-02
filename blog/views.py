@@ -1,13 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
-
 from .models import Post,Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
 from .forms import CommentForm
+from taggit.models import Tag
 
-def post_list(request):
+
+def post_list(request,tag_slug=None):
     post_list= Post.published.all()
+    tag = None
+    if tag_slug:
+        tag=get_object_or_404(Tag,slug=tag_slug)
+        post_list = post_list.filter(tags__in=[tag])
     paginator= Paginator(post_list,3) #Stronnicowanie
     page_number = request.GET.get('page',1)
     try:
@@ -18,7 +23,8 @@ def post_list(request):
         posts=paginator.page(1)
     return render(request,
                   'blog/post/list.html',
-                  {'posts':posts})
+                  {'posts':posts,
+                  'tag':tag})
 
 # class post_list(ListView):
 #     queryset = Post.published.all()
