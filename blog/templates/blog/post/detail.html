@@ -8,6 +8,16 @@
         Opublikowany {{ post.publish }} przez {{ post.author }}
     </p>
     {{ post.body|linebreaks }}
+    <h2>Podobne posty</h2>
+    {% for post in similar_posts %}
+        <p>
+            <a href = "{{ post.get_absolute_url }}"> {{ post.title }}</a>
+        </p>
+    {% empty %}
+        <p>
+            Nie ma jeszcze podobnych postów. 
+        </p>
+    {% endfor %}
     {% with comments.count as total_comments %}
         <h2>
             {{ total_comments }} komentarzy
