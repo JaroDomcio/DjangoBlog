@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <head>
@@ -12,7 +13,17 @@
     </div>
     <div id="sidebar">
         <h2>Moj blog</h2>
-        <p>Tutaj wstawiam swoje posty</p>
+        <p>
+            {% if total_posts >= 10 %}
+                Opublikowałem już {% total_posts %} postow.
+            {% else %}
+                Opublikowałem już {% total_posts %} posty.
+            {% endif %}
+        </p>
+        <h3>Najnowsze posty</h3>
+        {% show_latest_posts 3 %}
+        <h3>Najczesciej komentowany posty</h3>
+        {% show_most_commented_posts 3 %}
     </div>
-</body>
+</body> 
 </html>
