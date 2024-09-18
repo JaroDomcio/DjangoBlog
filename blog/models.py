@@ -34,6 +34,7 @@ class Post(models.Model): #model postu
     published = PublishedManager() # Niestandardowy menedżer opublikowanych postów
 
     tags = TaggableManager()
+    views = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering= ['-publish'] # Posty na blogu pokazują się w odwróconej chronologii

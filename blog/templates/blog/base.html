@@ -24,6 +24,16 @@
         {% show_latest_posts 3 %}
         <h3>Najczesciej komentowany posty</h3>
         {% show_most_commented_posts 3 %}
+        <h3>Najczęściej wyświetlany post</h3>
+        <ul>
+            {% get_most_viewed_post as most_viewed_post %}
+            {% if most_viewed_post %}
+                <li><a href="{{ most_viewed_post.get_absolute_url }}">{{ most_viewed_post.title }}</a></li>
+                <p>Liczba wyświetleń: {{ most_viewed_post.views }}</p>
+            {% else %}
+                <p>Brak postów do wyświetlenia.</p>
+            {% endif %}
+        </ul>
     </div>
 </body> 
 </html>
